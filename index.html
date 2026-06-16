@@ -49,6 +49,7 @@
   --accent:#ea580c;--accent2:#c2410c;--accentBg:rgba(234,88,12,.07);
   --red:#dc2626;--redBg:rgba(220,38,38,.07);
   --amber:#d97706;--amberBg:rgba(217,119,6,.08);
+  --green:#16a34a;--greenBg:rgba(22,163,74,.09);
   --blue:#2563eb;
   --radius:14px;--radius-sm:10px;
   --font:'Geist','Inter','Poppins','Roboto',ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
@@ -101,9 +102,26 @@ input[type=range].hint::-moz-range-thumb{animation:thumbPulse 1.5s ease-in-out i
 .plan-tier{font-size:11px;color:var(--tx3);margin-top:2px;line-height:1.4}
 .plan-amt{font-family:var(--display);font-size:26px;font-weight:700;letter-spacing:-.03em;margin:12px 0 4px}
 .plan-sub{font-size:11.5px;color:var(--tx3);line-height:1.5}
+.plan-sub b{color:var(--tx2);font-weight:600}
 .plan.best .plan-amt{color:var(--accent)}
 .best-pill{position:absolute;top:-10px;left:50%;transform:translateX(-50%) translateY(-4px);background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:5px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.08em;opacity:0;transition:opacity .25s,transform .25s;white-space:nowrap}
 .plan.best .best-pill{opacity:1;transform:translateX(-50%) translateY(0)}
+.plan-save{font-size:12px;font-weight:700;color:var(--green);max-height:0;opacity:0;overflow:hidden;transition:max-height .35s ease,opacity .3s ease,margin .35s ease}
+.plan-save.show{max-height:26px;opacity:1;margin:2px 0 6px}
+
+/* billing toggle */
+.billing{display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:30px;opacity:0;animation:fadeUp .6s .18s ease forwards}
+.billing-toggle{position:relative;display:flex;width:300px;max-width:90vw;background:var(--bg3);border:1px solid var(--border);border-radius:30px;padding:4px}
+.bt-slider{position:absolute;top:4px;bottom:4px;left:4px;width:calc(50% - 4px);background:var(--bg2);border-radius:26px;box-shadow:0 1px 3px rgba(0,0,0,.12);transition:transform .4s cubic-bezier(.34,1.35,.4,1)}
+.billing-toggle.yearly .bt-slider{transform:translateX(100%)}
+.bt-opt{flex:1;position:relative;z-index:1;border:none;background:none;cursor:pointer;font-family:inherit;font-size:13.5px;font-weight:600;color:var(--tx2);padding:10px 0;border-radius:26px;transition:color .25s;display:flex;align-items:center;justify-content:center;gap:7px}
+.bt-opt.active{color:var(--tx)}
+.bt-save{font-size:9.5px;font-weight:700;color:var(--green);background:var(--greenBg);padding:2px 7px;border-radius:10px;text-transform:uppercase;letter-spacing:.04em}
+.billing-note{font-size:12px;color:var(--tx3)}
+.billing-note b{color:var(--green);font-weight:600}
+
+@keyframes pricePop{0%{transform:translateY(10px) scale(.96);opacity:0}55%{transform:translateY(-2px) scale(1.02)}100%{transform:translateY(0) scale(1);opacity:1}}
+.plan-amt.animate{animation:pricePop .5s cubic-bezier(.34,1.35,.4,1)}
 
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px;opacity:0;animation:fadeUp .6s .3s ease forwards;box-shadow:0 1px 2px rgba(0,0,0,.03)}
 .card-title{font-size:13px;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;font-weight:500;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
@@ -115,6 +133,7 @@ input[type=range].hint::-moz-range-thumb{animation:thumbPulse 1.5s ease-in-out i
 .row .value{font-weight:600;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 .row .value.green{color:var(--accent)}
 .row .value.amber{color:var(--amber)}
+.row .value.save{color:var(--green)}
 
 .divider{height:1px;background:var(--border);margin:4px 0}
 
@@ -172,27 +191,39 @@ input[type=range].hint::-moz-range-thumb{animation:thumbPulse 1.5s ease-in-out i
     </div>
   </div>
 
+  <div class="billing">
+    <div class="billing-toggle" id="billToggle">
+      <span class="bt-slider"></span>
+      <button class="bt-opt active" data-bill="monthly">Monthly</button>
+      <button class="bt-opt" data-bill="yearly">Yearly <span class="bt-save">2 months free</span></button>
+    </div>
+    <div class="billing-note" id="billNote">Switch to yearly and get <b>2 months free</b> on every plan.</div>
+  </div>
+
   <div class="plans">
     <div class="plan" id="planStarter">
       <span class="best-pill">Best for you</span>
       <div class="plan-name">Starter</div>
-      <div class="plan-tier">Up to 1,000 orders</div>
+      <div class="plan-tier">Up to 1,000 orders/mo</div>
       <div class="plan-amt" id="amtStarter">—</div>
-      <div class="plan-sub">$299 · 1,000 orders included · then $0.50/order</div>
+      <div class="plan-save" id="saveStarter"></div>
+      <div class="plan-sub"><b id="baseStarter">$299</b> base · $0.30/order included · $0.50/order after 1,000</div>
     </div>
     <div class="plan" id="planGrowth">
       <span class="best-pill">Best for you</span>
       <div class="plan-name">Growth</div>
-      <div class="plan-tier">Up to 5,000 orders</div>
+      <div class="plan-tier">Up to 5,000 orders/mo</div>
       <div class="plan-amt" id="amtGrowth">—</div>
-      <div class="plan-sub">$499 · 5,000 orders included · then $0.25/order</div>
+      <div class="plan-save" id="saveGrowth"></div>
+      <div class="plan-sub"><b id="baseGrowth">$499</b> base · $0.10/order included · $0.25/order after 5,000</div>
     </div>
     <div class="plan" id="planPro">
       <span class="best-pill">Best for you</span>
       <div class="plan-name">Professional</div>
-      <div class="plan-tier">Up to 10,000 orders</div>
+      <div class="plan-tier">Up to 10,000 orders/mo</div>
       <div class="plan-amt" id="amtPro">—</div>
-      <div class="plan-sub">$799 · 10,000 orders included · then $0.15/order</div>
+      <div class="plan-save" id="savePro"></div>
+      <div class="plan-sub"><b id="basePro">$799</b> base · $0.08/order included · $0.15/order after 10,000</div>
     </div>
   </div>
 
@@ -212,7 +243,7 @@ input[type=range].hint::-moz-range-thumb{animation:thumbPulse 1.5s ease-in-out i
       <div class="m-val" id="cpor"></div>
     </div>
     <div class="metric">
-      <div class="m-label">Cost per year</div>
+      <div class="m-label" id="mLabel2">Cost per year</div>
       <div class="m-val" id="annual"></div>
     </div>
   </div>
@@ -228,10 +259,13 @@ input[type=range].hint::-moz-range-thumb{animation:thumbPulse 1.5s ease-in-out i
 
 <script>
 var PLANS=[
-  {key:'Starter', el:'planStarter', amt:'amtStarter', base:299, cap:1000,  overRate:0.50},
-  {key:'Growth',  el:'planGrowth',  amt:'amtGrowth',  base:499, cap:5000,  overRate:0.25},
-  {key:'Professional', el:'planPro', amt:'amtPro',    base:799, cap:10000, overRate:0.15}
+  {key:'Starter',      el:'planStarter', amt:'amtStarter', save:'saveStarter', baseEl:'baseStarter', base:299, cap:1000,  overRate:0.50},
+  {key:'Growth',       el:'planGrowth',  amt:'amtGrowth',  save:'saveGrowth',  baseEl:'baseGrowth',  base:499, cap:5000,  overRate:0.25},
+  {key:'Professional', el:'planPro',     amt:'amtPro',     save:'savePro',     baseEl:'basePro',     base:799, cap:10000, overRate:0.15}
 ];
+
+var yearly=false;       // billing mode
+var MONTHS_PAID=10;     // yearly plan = pay for 10 months, get 2 free
 
 function usd(n){
   return '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});
@@ -240,17 +274,22 @@ function usd2(n){
   return '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
 }
 function ord(n){return n.toLocaleString('en-US')}
+function per(){return yearly?'/yr':'/mo'}
 
+function baseFee(p){return yearly ? p.base*MONTHS_PAID : p.base}     // annual base (2 months free)
+function annualSaving(p){return p.base*(12-MONTHS_PAID)}            // = base × 2
+
+// Total cost for the selected order volume, in the active billing period.
+// Base covers all orders up to the cap; only over-cap orders cost extra.
 function planCost(p,orders){
-  // Base fee already includes all orders up to the cap.
-  // Only orders beyond the cap cost extra, at overRate each.
   var over=Math.max(0,orders-p.cap);
-  return p.base + over*p.overRate;
+  var overMonthly=over*p.overRate;
+  if(yearly) return baseFee(p) + overMonthly*12;   // overage recurs every month
+  return p.base + overMonthly;
 }
 
 function update(){
   var orders=+document.getElementById('orS').value;
-
   document.getElementById('orV').textContent=ord(orders);
 
   // cost of every plan
@@ -264,51 +303,93 @@ function update(){
 
   // plan cards
   PLANS.forEach(function(p,i){
-    document.getElementById(p.amt).textContent=usd(costs[i])+'/mo';
+    document.getElementById(p.amt).textContent=usd(costs[i])+per();
+    document.getElementById(p.baseEl).textContent=usd(baseFee(p));
+    var sEl=document.getElementById(p.save);
+    if(yearly){sEl.textContent='Save '+usd(annualSaving(p))+'/year';sEl.classList.add('show');}
+    else{sEl.classList.remove('show');}
     document.getElementById(p.el).classList.toggle('best',i===bestIdx);
   });
 
   // breakdown for the best plan
   var within=Math.min(orders,best.cap);
   var over=Math.max(0,orders-best.cap);
-  var overCost=over*best.overRate;
+  var overCost=over*best.overRate*(yearly?12:1);
 
-  document.getElementById('whichPlan').textContent=best.key+' plan';
+  document.getElementById('whichPlan').textContent=best.key+(yearly?' · yearly':' · monthly');
 
   var html='';
-  html+='<div class="row"><span class="label">'+best.key+' base fee (includes up to '+ord(best.cap)+' orders)</span><span class="value">'+usd(best.base)+'</span></div>';
-  html+='<div class="row"><span class="label">'+ord(within)+' of '+ord(best.cap)+' included orders used</span><span class="value"><span class="pill free">Included</span></span></div>';
+  if(yearly){
+    html+='<div class="row"><span class="label">'+best.key+' annual fee (12 months, 2 free)</span><span class="value">'+usd(baseFee(best))+'</span></div>';
+  }else{
+    html+='<div class="row"><span class="label">'+best.key+' base fee (includes up to '+ord(best.cap)+' orders)</span><span class="value">'+usd(best.base)+'</span></div>';
+  }
+  html+='<div class="row"><span class="label">'+ord(within)+' of '+ord(best.cap)+' included orders / mo</span><span class="value"><span class="pill free">Included</span></span></div>';
   if(over>0){
-    html+='<div class="row"><span class="label">'+ord(over)+' extra orders × '+usd2(best.overRate)+'</span><span class="value amber">'+usd(overCost)+'</span></div>';
+    html+='<div class="row"><span class="label">'+ord(over)+' extra orders × '+usd2(best.overRate)+(yearly?' × 12 mo':'')+'</span><span class="value amber">'+usd(overCost)+'</span></div>';
   }else{
     html+='<div class="row"><span class="label">Extra orders (over '+ord(best.cap)+')</span><span class="value"><span class="pill free">None</span></span></div>';
   }
+  if(yearly){
+    html+='<div class="row"><span class="label">Annual billing discount (2 months free)</span><span class="value save">−'+usd(annualSaving(best))+'</span></div>';
+  }
 
   document.getElementById('bk').innerHTML=html;
-  document.getElementById('tot').textContent=usd(bestCost)+'/mo';
+  document.getElementById('tot').textContent=usd(bestCost)+per();
 
   // metrics
-  document.getElementById('cpor').textContent=orders>0?usd2(bestCost/orders):'—';
-  document.getElementById('annual').textContent=usd(bestCost*12);
+  var perOrderDiv=orders*(yearly?12:1);
+  document.getElementById('cpor').textContent=orders>0?usd2(bestCost/perOrderDiv):'—';
+  if(yearly){
+    document.getElementById('mLabel2').textContent='Cost per month';
+    document.getElementById('annual').textContent=usd(bestCost/12);
+  }else{
+    document.getElementById('mLabel2').textContent='Cost per year';
+    document.getElementById('annual').textContent=usd(bestCost*12);
+  }
 
-  // savings vs the next-cheapest plan
-  var others=costs.slice().sort(function(a,b){return a-b});
-  var nextBest=others[1];
-  var saved=nextBest-bestCost;
+  // savings vs the next-cheapest plan (same billing period)
+  var sorted=costs.slice().sort(function(a,b){return a-b});
+  var saved=sorted[1]-sorted[0];
 
   var box=document.getElementById('saveBox');
   if(saved>0.5){
     box.className='save-box positive';
+    var extra=yearly?' · plus '+usd(annualSaving(best))+'/yr off with annual billing':' · '+usd(saved*12)+' per year';
     box.innerHTML='<div class="save-label">The '+best.key+' plan is your cheapest option</div>'+
-      '<div class="save-amount">'+usd(saved)+'/mo</div>'+
-      '<div class="save-sub">saved vs the next-best plan · '+usd(saved*12)+' per year</div>';
+      '<div class="save-amount">'+usd(saved)+per()+'</div>'+
+      '<div class="save-sub">saved vs the next-best plan'+extra+'</div>';
   }else{
     box.className='save-box neutral';
+    var note=yearly?' on yearly billing':'/month';
     box.innerHTML='<div class="save-label">Recommended plan</div>'+
       '<div class="save-amount">'+best.key+'</div>'+
-      '<div class="save-sub">Best fit for '+ord(orders)+' orders/month at '+usd(bestCost)+'/mo</div>';
+      '<div class="save-sub">Best fit for '+ord(orders)+' orders'+(yearly?'/mo':'/month')+' at '+usd(bestCost)+per()+'</div>';
   }
 }
+
+// replay the price-pop animation on every plan amount
+function animatePrices(){
+  PLANS.forEach(function(p){
+    var el=document.getElementById(p.amt);
+    el.classList.remove('animate'); void el.offsetWidth; el.classList.add('animate');
+  });
+}
+
+// billing toggle
+document.getElementById('billToggle').addEventListener('click',function(e){
+  var btn=e.target.closest('.bt-opt'); if(!btn) return;
+  var wantYearly=btn.getAttribute('data-bill')==='yearly';
+  if(wantYearly===yearly) return;
+  yearly=wantYearly;
+  this.classList.toggle('yearly',yearly);
+  this.querySelectorAll('.bt-opt').forEach(function(b){b.classList.toggle('active',b===btn)});
+  document.getElementById('billNote').innerHTML=yearly
+    ?'You’re on <b>yearly billing</b> — 2 months free on every plan.'
+    :'Switch to yearly and get <b>2 months free</b> on every plan.';
+  update();
+  animatePrices();
+});
 
 document.getElementById('orS').addEventListener('input',function(){
   this.classList.remove('hint');
