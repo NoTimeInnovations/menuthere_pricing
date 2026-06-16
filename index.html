@@ -27,7 +27,7 @@ body{background:var(--bg);color:var(--tx);font-family:var(--font);min-height:100
 }
 .glow{position:fixed;top:-200px;left:50%;transform:translateX(-50%);width:800px;height:500px;background:radial-gradient(ellipse,rgba(234,88,12,.12) 0%,transparent 70%);pointer-events:none}
 
-.wrap{max-width:680px;margin:0 auto;padding:48px 24px 80px;position:relative;z-index:1}
+.wrap{max-width:720px;margin:0 auto;padding:48px 24px 80px;position:relative;z-index:1}
 
 .logo{display:flex;align-items:center;gap:10px;margin-bottom:48px;opacity:0;animation:fadeUp .6s ease forwards}
 .logo-icon{width:36px;height:36px;border-radius:8px;display:block;object-fit:cover}
@@ -50,16 +50,16 @@ input[type=range]::-webkit-slider-thumb:active{transform:scale(1.05)}
 input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);box-shadow:0 0 0 2px var(--border2),0 2px 8px rgba(0,0,0,.12);cursor:pointer}
 .ticks{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--tx3)}
 
-.plans{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;opacity:0;animation:fadeUp .6s .25s ease forwards}
-.plan{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;position:relative;transition:border-color .25s,box-shadow .25s,transform .25s;box-shadow:0 1px 2px rgba(0,0,0,.03)}
+.plans{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:24px;opacity:0;animation:fadeUp .6s .25s ease forwards}
+.plan{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:22px 20px;position:relative;transition:border-color .25s,box-shadow .25s,transform .25s;box-shadow:0 1px 2px rgba(0,0,0,.03)}
 .plan.best{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 8px 24px rgba(234,88,12,.12);transform:translateY(-2px)}
-.plan-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .plan-name{font-size:13px;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;font-weight:500}
-.plan-amt{font-family:var(--display);font-size:30px;font-weight:700;letter-spacing:-.03em;margin:8px 0 4px}
-.plan-sub{font-size:12px;color:var(--tx3);line-height:1.5}
+.plan-tier{font-size:11px;color:var(--tx3);margin-top:2px;line-height:1.4}
+.plan-amt{font-family:var(--display);font-size:26px;font-weight:700;letter-spacing:-.03em;margin:12px 0 4px}
+.plan-sub{font-size:11.5px;color:var(--tx3);line-height:1.5}
 .plan.best .plan-amt{color:var(--accent)}
-.best-pill{position:absolute;top:-10px;right:16px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:5px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.08em;opacity:0;transform:translateY(-4px);transition:opacity .25s,transform .25s}
-.plan.best .best-pill{opacity:1;transform:translateY(0)}
+.best-pill{position:absolute;top:-10px;left:50%;transform:translateX(-50%) translateY(-4px);background:var(--accent);color:#fff;font-size:10px;font-weight:700;padding:5px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.08em;opacity:0;transition:opacity .25s,transform .25s;white-space:nowrap}
+.plan.best .best-pill{opacity:1;transform:translateX(-50%) translateY(0)}
 
 .card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px;opacity:0;animation:fadeUp .6s .3s ease forwards;box-shadow:0 1px 2px rgba(0,0,0,.03)}
 .card-title{font-size:13px;color:var(--tx3);text-transform:uppercase;letter-spacing:.08em;font-weight:500;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center}
@@ -81,25 +81,18 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .metrics{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;opacity:0;animation:fadeUp .6s .35s ease forwards}
 .metric{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:18px 20px;box-shadow:0 1px 2px rgba(0,0,0,.03)}
 .metric .m-label{font-size:12px;color:var(--tx3);margin-bottom:6px;text-transform:uppercase;letter-spacing:.06em}
-.metric .m-val{font-size:24px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-
-.vs-card{background:var(--bg2);border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:16px;opacity:0;animation:fadeUp .6s .4s ease forwards;box-shadow:0 1px 2px rgba(0,0,0,.03)}
-.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
-.vs-side .vs-label{font-size:12px;color:var(--tx3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-.vs-side .vs-amount{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
-.vs-side .vs-sub{font-size:12px;color:var(--tx3);margin-top:4px}
-.vs-side.bad .vs-amount{color:var(--red)}
-.vs-side.good .vs-amount{color:var(--accent)}
+.metric .m-val{font-size:22px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
 
 .save-box{border-radius:var(--radius);padding:28px;text-align:center;opacity:0;animation:fadeUp .6s .45s ease forwards;transition:background .3s,border-color .3s}
 .save-box.positive{background:var(--accentBg);border:1px solid rgba(234,88,12,.15)}
-.save-box.negative{background:var(--amberBg);border:1px solid rgba(217,119,6,.15)}
+.save-box.neutral{background:var(--bg3);border:1px solid var(--border)}
 .save-box .save-label{font-size:13px;font-weight:500;margin-bottom:4px}
-.save-box .save-amount{font-family:var(--display);font-size:36px;font-weight:700;letter-spacing:-.03em;margin-bottom:2px}
-.save-box .save-sub{font-size:13px;opacity:.7}
+.save-box .save-amount{font-family:var(--display);font-size:34px;font-weight:700;letter-spacing:-.03em;margin-bottom:2px}
+.save-box .save-sub{font-size:13px;opacity:.75}
 .save-box.positive .save-label,.save-box.positive .save-sub{color:var(--accent)}
 .save-box.positive .save-amount{color:var(--accent)}
-.save-box.negative .save-label,.save-box.negative .save-amount,.save-box.negative .save-sub{color:var(--amber)}
+.save-box.neutral .save-label,.save-box.neutral .save-sub{color:var(--tx2)}
+.save-box.neutral .save-amount{color:var(--tx)}
 
 .pill{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;text-transform:uppercase;letter-spacing:.05em}
 .pill.free{background:var(--accentBg);color:var(--accent)}
@@ -110,10 +103,10 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .footer .tag{display:inline-block;margin-top:12px;font-size:12px;color:var(--accent);font-weight:500;letter-spacing:.04em;text-transform:uppercase;padding:6px 14px;border:1px solid rgba(234,88,12,.2);border-radius:20px}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:540px){.controls,.metrics,.vs-grid,.plans{grid-template-columns:1fr}}
+@media(max-width:600px){.controls,.metrics,.plans{grid-template-columns:1fr}}
 </style>
 </head>
-<body class="antialiased font-sans inter_c15e96cb-module__0bjUvq__variable dancing_script_a5c38056-module__D9u9fW__variable poppins_5344c524-module__cwpmZW__variable roboto_b54d0450-module__dsfrUq__variable geist_e799d87a-module__u8MhCG__variable">
+<body class="antialiased font-sans">
 <div class="noise"></div>
 <div class="glow"></div>
 <div class="wrap">
@@ -123,47 +116,38 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
     <span class="logo-text">MenuThere</span>
   </div>
 
-  <h1>Pay 10% or ₹10,000 — whichever is less</h1>
-  <p class="subtitle">Pick the model that fits your scale. <span>10% commission</span> on revenue, or <span>₹10,000/mo</span> flat with 3,000 orders included. <span>₹5,000</span> per extra outlet, <span>₹3</span> per extra order.</p>
+  <h1>Find your best plan</h1>
+  <p class="subtitle">Tell us your <span>monthly order volume</span>. We'll pick the plan that costs you the least and show exactly what you pay.</p>
 
   <div class="controls">
-    <div class="control">
-      <label><span>Outlets</span><span class="val" id="oV">1</span></label>
-      <input type="range" min="1" max="500" value="1" step="1" id="oS">
-      <div class="ticks"><span>1</span><span>100</span><span>250</span><span>500</span></div>
-    </div>
-    <div class="control">
-      <label><span>Total orders / month</span><span class="val" id="orV">3,000</span></label>
-      <input type="range" min="100" max="200000" value="3000" step="100" id="orS">
-      <div class="ticks"><span>100</span><span>50k</span><span>100k</span><span>200k</span></div>
-    </div>
-  </div>
-
-  <div class="controls">
-    <div class="control">
-      <label><span>Avg order value</span><span class="val" id="avV">₹400</span></label>
-      <input type="range" min="100" max="2000" value="400" step="50" id="avS">
-      <div class="ticks"><span>₹100</span><span>₹500</span><span>₹1,000</span><span>₹2,000</span></div>
-    </div>
-    <div class="control">
-      <label><span>Aggregator commission</span><span class="val" id="cmV">25%</span></label>
-      <input type="range" min="15" max="45" value="25" step="1" id="cmS">
-      <div class="ticks"><span>15%</span><span>25%</span><span>35%</span><span>45%</span></div>
+    <div class="control" style="grid-column:1/-1">
+      <label><span>Orders / month</span><span class="val" id="orV">3,000</span></label>
+      <input type="range" min="100" max="100000" value="3000" step="100" id="orS">
+      <div class="ticks"><span>100</span><span>25k</span><span>50k</span><span>1 Lakh</span></div>
     </div>
   </div>
 
   <div class="plans">
-    <div class="plan" id="planCom">
+    <div class="plan" id="planStarter">
       <span class="best-pill">Best for you</span>
-      <div class="plan-head"><span class="plan-name">Commission</span></div>
-      <div class="plan-amt" id="comAmt">—</div>
-      <div class="plan-sub">10% of revenue. Pay only when you sell.</div>
+      <div class="plan-name">Starter</div>
+      <div class="plan-tier">Up to 1,000 orders</div>
+      <div class="plan-amt" id="amtStarter">—</div>
+      <div class="plan-sub">$299 · 1,000 orders included · then $0.50/order</div>
     </div>
-    <div class="plan" id="planFix">
+    <div class="plan" id="planGrowth">
       <span class="best-pill">Best for you</span>
-      <div class="plan-head"><span class="plan-name">Fixed</span></div>
-      <div class="plan-amt" id="fixAmt">—</div>
-      <div class="plan-sub">₹10,000/mo + ₹5,000 per extra outlet. 3,000 orders/outlet.</div>
+      <div class="plan-name">Growth</div>
+      <div class="plan-tier">Up to 5,000 orders</div>
+      <div class="plan-amt" id="amtGrowth">—</div>
+      <div class="plan-sub">$499 · 5,000 orders included · then $0.25/order</div>
+    </div>
+    <div class="plan" id="planPro">
+      <span class="best-pill">Best for you</span>
+      <div class="plan-name">Professional</div>
+      <div class="plan-tier">Up to 10,000 orders</div>
+      <div class="plan-amt" id="amtPro">—</div>
+      <div class="plan-sub">$799 · 10,000 orders included · then $0.15/order</div>
     </div>
   </div>
 
@@ -179,117 +163,109 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 
   <div class="metrics">
     <div class="metric">
-      <div class="m-label">Per outlet</div>
-      <div class="m-val" id="cpo"></div>
-    </div>
-    <div class="metric">
-      <div class="m-label">Per order</div>
+      <div class="m-label">Cost per order</div>
       <div class="m-val" id="cpor"></div>
     </div>
-  </div>
-
-  <div class="vs-card">
-    <div class="card-title">Compared to aggregators</div>
-    <div class="vs-grid">
-      <div class="vs-side bad">
-        <div class="vs-label">Swiggy / Zomato</div>
-        <div class="vs-amount" id="aggAmt"></div>
-        <div class="vs-sub" id="aggSub"></div>
-      </div>
-      <div class="vs-side good">
-        <div class="vs-label">MenuThere</div>
-        <div class="vs-amount" id="mtAmt"></div>
-        <div class="vs-sub" id="mtSub"></div>
-      </div>
+    <div class="metric">
+      <div class="m-label">Cost per year</div>
+      <div class="m-val" id="annual"></div>
     </div>
   </div>
 
   <div class="save-box" id="saveBox"></div>
 
   <div class="footer">
-    <p>Choose your plan · Your brand · Your customers · Your data</p>
+    <p>Your brand · Your customers · Your data · Cancel anytime</p>
     <span class="tag">Start in under 2 minutes</span>
   </div>
 
 </div>
 
 <script>
-function f(n){return '₹'+Math.round(n).toLocaleString('en-IN')}
+var PLANS=[
+  {key:'Starter', el:'planStarter', amt:'amtStarter', base:299, cap:1000,  overRate:0.50},
+  {key:'Growth',  el:'planGrowth',  amt:'amtGrowth',  base:499, cap:5000,  overRate:0.25},
+  {key:'Professional', el:'planPro', amt:'amtPro',    base:799, cap:10000, overRate:0.15}
+];
+
+function usd(n){
+  return '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});
+}
+function usd2(n){
+  return '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function ord(n){return n.toLocaleString('en-US')}
+
+function planCost(p,orders){
+  // Base fee already includes all orders up to the cap.
+  // Only orders beyond the cap cost extra, at overRate each.
+  var over=Math.max(0,orders-p.cap);
+  return p.base + over*p.overRate;
+}
+
 function update(){
-  var n=+document.getElementById('oS').value;
-  var totalOrd=+document.getElementById('orS').value;
-  var aov=+document.getElementById('avS').value;
-  var cm=+document.getElementById('cmS').value;
+  var orders=+document.getElementById('orS').value;
 
-  document.getElementById('oV').textContent=n;
-  document.getElementById('orV').textContent=totalOrd.toLocaleString('en-IN');
-  document.getElementById('avV').textContent='₹'+aov.toLocaleString('en-IN');
-  document.getElementById('cmV').textContent=cm+'%';
+  document.getElementById('orV').textContent=ord(orders);
 
-  var rev=totalOrd*aov;
+  // cost of every plan
+  var costs=PLANS.map(function(p){return planCost(p,orders)});
 
-  var comCost=rev*0.10;
+  // best (cheapest) plan
+  var bestIdx=0;
+  for(var i=1;i<costs.length;i++){if(costs[i]<costs[bestIdx])bestIdx=i;}
+  var best=PLANS[bestIdx];
+  var bestCost=costs[bestIdx];
 
-  var fixBase=10000+(n-1)*5000;
-  var pool=n*3000;
-  var extra=Math.max(0,totalOrd-pool);
-  var overCost=extra*3;
-  var fixCost=fixBase+overCost;
+  // plan cards
+  PLANS.forEach(function(p,i){
+    document.getElementById(p.amt).textContent=usd(costs[i])+'/mo';
+    document.getElementById(p.el).classList.toggle('best',i===bestIdx);
+  });
 
-  document.getElementById('comAmt').textContent=f(comCost)+'/mo';
-  document.getElementById('fixAmt').textContent=f(fixCost)+'/mo';
+  // breakdown for the best plan
+  var within=Math.min(orders,best.cap);
+  var over=Math.max(0,orders-best.cap);
+  var overCost=over*best.overRate;
 
-  var comBetter=comCost<=fixCost;
-  document.getElementById('planCom').classList.toggle('best',comBetter);
-  document.getElementById('planFix').classList.toggle('best',!comBetter);
-
-  var total=Math.min(comCost,fixCost);
-  document.getElementById('whichPlan').textContent=comBetter?'Commission · 10%':'Fixed plan';
+  document.getElementById('whichPlan').textContent=best.key+' plan';
 
   var html='';
-  if(comBetter){
-    html+='<div class="row"><span class="label">Revenue ('+totalOrd.toLocaleString('en-IN')+' × '+f(aov)+')</span><span class="value">'+f(rev)+'</span></div>';
-    html+='<div class="row"><span class="label">10% commission</span><span class="value green">'+f(comCost)+'</span></div>';
-    html+='<div class="row"><span class="label">Fixed plan alternative</span><span class="value" style="color:var(--tx3)">'+f(fixCost)+'</span></div>';
-  } else {
-    if(n===1){
-      html+='<div class="row"><span class="label">Base plan (1 outlet)</span><span class="value">'+f(10000)+'</span></div>';
-    } else {
-      html+='<div class="row"><span class="label">Base plan (1st outlet)</span><span class="value">'+f(10000)+'</span></div>';
-      html+='<div class="row"><span class="label">'+(n-1)+' additional outlet'+(n-1>1?'s':'')+' × ₹5,000</span><span class="value">'+f((n-1)*5000)+'</span></div>';
-    }
-    html+='<div class="row"><span class="label">Order pool included</span><span class="value">'+pool.toLocaleString('en-IN')+' orders</span></div>';
-    if(extra>0){
-      html+='<div class="row"><span class="label">Extra orders ('+extra.toLocaleString('en-IN')+' × ₹3)</span><span class="value amber">'+f(overCost)+'</span></div>';
-    } else {
-      html+='<div class="row"><span class="label">Extra orders</span><span class="value green"><span class="pill free">Within pool</span></span></div>';
-    }
-    html+='<div class="row"><span class="label">Commission alternative</span><span class="value" style="color:var(--tx3)">'+f(comCost)+'</span></div>';
+  html+='<div class="row"><span class="label">'+best.key+' base fee (includes up to '+ord(best.cap)+' orders)</span><span class="value">'+usd(best.base)+'</span></div>';
+  html+='<div class="row"><span class="label">'+ord(within)+' of '+ord(best.cap)+' included orders used</span><span class="value"><span class="pill free">Included</span></span></div>';
+  if(over>0){
+    html+='<div class="row"><span class="label">'+ord(over)+' extra orders × '+usd2(best.overRate)+'</span><span class="value amber">'+usd(overCost)+'</span></div>';
+  }else{
+    html+='<div class="row"><span class="label">Extra orders (over '+ord(best.cap)+')</span><span class="value"><span class="pill free">None</span></span></div>';
   }
 
   document.getElementById('bk').innerHTML=html;
-  document.getElementById('tot').textContent=f(total);
-  document.getElementById('cpo').textContent=f(Math.round(total/n));
-  document.getElementById('cpor').textContent=totalOrd>0?'₹'+(total/totalOrd).toFixed(1):'—';
+  document.getElementById('tot').textContent=usd(bestCost)+'/mo';
 
-  var aggCost=rev*(cm/100);
-  var saved=aggCost-total;
+  // metrics
+  document.getElementById('cpor').textContent=orders>0?usd2(bestCost/orders):'—';
+  document.getElementById('annual').textContent=usd(bestCost*12);
 
-  document.getElementById('aggAmt').textContent=f(aggCost)+'/mo';
-  document.getElementById('aggSub').textContent=cm+'% of '+f(rev)+' revenue';
-  document.getElementById('mtAmt').textContent=f(total)+'/mo';
-  document.getElementById('mtSub').textContent=rev>0?(total/rev*100).toFixed(1)+'% of revenue':'—';
+  // savings vs the next-cheapest plan
+  var others=costs.slice().sort(function(a,b){return a-b});
+  var nextBest=others[1];
+  var saved=nextBest-bestCost;
 
   var box=document.getElementById('saveBox');
-  if(saved>0){
+  if(saved>0.5){
     box.className='save-box positive';
-    box.innerHTML='<div class="save-label">You save every month</div><div class="save-amount">'+f(saved)+'</div><div class="save-sub">That\'s '+f(saved*12)+' per year back in your pocket</div>';
-  } else {
-    box.className='save-box negative';
-    box.innerHTML='<div class="save-label">Low volume scenario</div><div class="save-amount">Aggregator may cost less</div><div class="save-sub">But with MenuThere you own your customers and data</div>';
+    box.innerHTML='<div class="save-label">The '+best.key+' plan is your cheapest option</div>'+
+      '<div class="save-amount">'+usd(saved)+'/mo</div>'+
+      '<div class="save-sub">saved vs the next-best plan · '+usd(saved*12)+' per year</div>';
+  }else{
+    box.className='save-box neutral';
+    box.innerHTML='<div class="save-label">Recommended plan</div>'+
+      '<div class="save-amount">'+best.key+'</div>'+
+      '<div class="save-sub">Best fit for '+ord(orders)+' orders/month at '+usd(bestCost)+'/mo</div>';
   }
 }
-['oS','orS','avS','cmS'].forEach(function(id){document.getElementById(id).addEventListener('input',update)});
+
+['orS'].forEach(function(id){document.getElementById(id).addEventListener('input',update)});
 update();
 </script>
 </body>
